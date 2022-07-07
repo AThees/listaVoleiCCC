@@ -42,14 +42,6 @@ int main()
 
             }
 
-            deFora.desenfileiraFinal();
-
-            deFora.imprime();
-
-            deFora.desenfileiraFinal();
-
-            deFora.imprime();
-
         }
 
         if (escolha == 2){
@@ -105,13 +97,7 @@ int main()
 
         if (escolha == 4)
         {
-            int numJogadoresTimeA, numJogadoresTimeB, numJogadoresDeFora, timeVencedor;
-
-            FilaEncad aux;
-
-            numJogadoresTimeA = timeA.numJogadores();
-            numJogadoresTimeB = timeB.numJogadores();
-            numJogadoresDeFora = deFora.numJogadores();
+            int timeVencedor;
 
             cout << "Escolha o time vencedor" << endl;
             cout << "1 - Time A" << endl;
@@ -121,13 +107,67 @@ int main()
 
             if (timeVencedor == 1){
 
-                while(!timeA.vazia()){
-                    aux.enfileira(timeA.desenfileiraFinal());
+                //Coloca os 6 jogadores do time A de fora
+                for(int i = 0; i < timeA.numJogadores(); i++)
+                {
+                    deFora.enfileira(timeA.desenfileira());
                 }
-
-
+                //Coloca os 6 jogadores do time B de fora
+                for(int i = 0; i < timeB.numJogadores(); i++)
+                {
+                    deFora.enfileira(timeB.desenfileira());
+                }
                 
             }
+
+            else if (timeVencedor == 2){
+
+                //Coloca os 6 jogadores do time B de fora
+                for(int i = 0; i < 6; i++)
+                {
+                    deFora.enfileira(timeB.desenfileira());
+                }
+                //Coloca os 6 jogadores do time A de fora
+                for(int i = 0; i < 6; i++)
+                {
+                    deFora.enfileira(timeA.desenfileira());
+                }
+
+            }
+
+            else{
+                cout << "ERRO: Time invalido!" << endl;
+                continue;
+            }
+
+            // Gera o time A com 6 jogadores de fora 
+            for(int i = 0; i < 6; i++)
+            {
+                timeA.enfileira(deFora.desenfileira());
+            }
+
+            // Gera o time B com 6 jogadores de fora
+
+            for(int i = 0; i < 6; i++)
+            {
+                timeB.enfileira(deFora.desenfileira());
+            }
+
+            // Imprime os dois times gerados
+            cout << "Time A:" << endl;
+            timeA.imprime();
+
+            cout << "Time B:" << endl;
+            timeB.imprime();
+
+
+        }
+
+        if (escolha == 5) {
+
+            cout << "Lista de jogadores de fora:" << endl;
+
+            deFora.imprime();
 
         }
         
@@ -138,3 +178,4 @@ int main()
 
     return 0;
 }
+
